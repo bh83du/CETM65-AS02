@@ -1,0 +1,11 @@
+{% extends "knowledgebase/template.html" %}
+
+{% block content %}
+    <h2>Thank You for using the ELCSS Knowledgebase.</h2>
+    <h3>You have now been logged out.</h3>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            <a href="{% url 'login' %}">Sign In Again Here</a>
+        </small>
+    </div>
+{% endblock %}
