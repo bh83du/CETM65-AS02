@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 # Creating a model to store knowledge base articles
@@ -7,7 +8,7 @@ class Article(models.Model):
     title = models.CharField(max_length=80, unique=True, null=False)
     area = models.CharField(max_length=30, null=False)
     content = models.TextField()
-    jiraid = models.CharField(max_length=80, null=True)
+    jiraid = models.CharField(max_length=80, blank=True, null=True, verbose_name='Jira ID')
     date_posted = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.PROTECT) # Doesn't delete post when Author is deleted.
@@ -26,5 +27,7 @@ class Article(models.Model):
         
         return article_str 
 
+    def get_absolute_url(self):
+        return reverse('KB-detail', kwargs={'pk': self.pk})
 
 

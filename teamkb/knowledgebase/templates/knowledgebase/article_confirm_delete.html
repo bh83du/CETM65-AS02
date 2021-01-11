@@ -1,0 +1,16 @@
+{% extends "knowledgebase/template.html" %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Article</legend>
+                <h2>This will delete your article.  Please confirm you wish to continue and delete your article.</h2>
+            </fieldset>
+            <div class = "form-group">
+                <button class="btn btn-outline-danger" type"submit">Delete</button>
+                <a class="btn btn-default" href="{% url 'KB-detail' article.id %}">Cancel</a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

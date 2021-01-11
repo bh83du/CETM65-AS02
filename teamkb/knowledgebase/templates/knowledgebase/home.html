@@ -1,17 +1,9 @@
 {% extends "knowledgebase/template.html" %}
 {% block content %}
-    {% for article in articles %}
-    
-        <article class="media content-section">
-            <div class="media-body">
-            <div class="article-metadata">
-                <a class="mr-2" href="#">{{ article.author }}</a>
-                <small class="text-muted">{{ article.date_posted }}</small>
-            </div>
-            <h2><a class="article-title" href="#">{{ article.title }}</a></h2>
-            <p class="article-content">{{ article.content }}</p>
-            </div>
-        </article>
-        
-    {% endfor %}
+<div>
+    <h1>ELCSS - Knowledgebase Home</h1>   
+</div>
+<div>
+<p>Some text describing the purpose of the project and the application.</p>
+</div>    
 {% endblock %}
