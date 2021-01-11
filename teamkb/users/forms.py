@@ -27,4 +27,4 @@ class ProfileUpdateForm(forms.ModelForm):
     # Meta class to identify the model for the form to interact with
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['image', 'bio']

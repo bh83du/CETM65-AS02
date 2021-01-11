@@ -1,8 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Article
+from .models import Article, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from .forms import CreateArticleForm, UpdateArticleForm
+
 
 # Updated view to render home.html
 def home(request):
@@ -35,7 +37,7 @@ class ArticleDetailView(DetailView):
 
 class ArticleCreateView(LoginRequiredMixin, CreateView):
     model = Article
-    fields = ['title', 'content', 'jiraid']
+    form_class = CreateArticleForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -43,7 +45,7 @@ class ArticleCreateView(LoginRequiredMixin, CreateView):
 
 class ArticleUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Article
-    fields = ['title', 'content']
+    form_class = UpdateArticleForm
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -64,6 +66,3 @@ class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
-
-def news(request):
-    return render(request, 'knowledgebase/news.html', {'title': 'News'})

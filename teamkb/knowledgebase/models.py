@@ -3,11 +3,23 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 
+# Create a model to maintain Article Categories
+
+class Category(models.Model):
+    name = models.CharField(max_length=80, unique=True, null=False)
+
+    def __str__(self):
+        category_str =   f"Name: {self.name}"
+        return category_str 
+
+    def get_absolute_url(self):
+        return reverse('KB-detail', kwargs={'pk': self.pk})
 
 # Creating a model to store knowledge base articles
 class Article(models.Model):
     title = models.CharField(max_length=80, unique=True, null=False)
-    area = models.CharField(max_length=30, null=False)
+    category = models.CharField(max_length=30, null=False)
+    area = models.CharField(max_length=30, blank=True, null=False)
     content = RichTextField()
     jiraid = models.CharField(max_length=80, blank=True, null=True, verbose_name='Jira ID')
     date_posted = models.DateTimeField(auto_now_add=True)

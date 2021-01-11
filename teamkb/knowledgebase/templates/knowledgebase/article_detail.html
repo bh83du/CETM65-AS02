@@ -3,12 +3,19 @@
     <article class="media content-section">
         <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
         <div class="media-body">
-        <div class="article-metadata">
-            <a class="mr-2" href="{% url 'KB-author' object.author.username %}">{{ object.author }}</a>
-            <small class="text-muted">{{ object.date_posted }}</small>
-        </div>
             <h2 class="article-title">{{ object.title }}</h2>
+        <div class="article-metadata">
+            <p>
+                Submitted By: <a class="mr-2" href="{% url 'KB-author' object.author.username %}">{{ object.author }}</a>
+            </p>
+            <div class="article-metadata">
+                <small class="text-muted">Date Submitted:   {{ object.date_posted }}</small><br>
+                <small class="text-muted">Last Updated:     {{ object.date_updated }}</small>
+            </div>
+        </div>
+            <h5>Category: {{ object.category }}</h5>
             <p class="article-content">{{ object.content|safe }}</p>
+            <p>Related Jira ID: {{ object.jiraid }}</p>
         </div>
     </article>  
     {% if object.author == user %}

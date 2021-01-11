@@ -8,11 +8,15 @@
             <article class="media content-section">
                 <img class="rounded-circle article-img" src="{{ article.author.profile.image.url }}">
                 <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="{% url 'KB-author' article.author.username %}">{{ article.author }}</a>
-                    <small class="text-muted">{{ article.date_posted }}</small>
-                </div>
-                <h2><a class="article-title" href="{% url 'KB-detail' article.id %}">{{ article.title }}</a></h2>
+                  <h2><a class="article-title" href="{% url 'KB-detail' article.id %}">{{ article.title }}</a></h2>
+                  <div class="article-metadata">
+                    <p>
+                      Submitted By: <a class="mr-2" href="{% url 'KB-author' article.author.username %}">{{ article.author }}</a>
+                    </p>                    
+                      <div class="article-metadata">
+                        <small class="text-muted">Date Submitted:   {{ article.date_posted }}</small>
+                      </div>
+                  </div>
                 <p class="article-content">{{ article.content|safe }}</p>
                 </div>
             </article>     

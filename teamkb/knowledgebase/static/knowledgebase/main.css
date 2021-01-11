@@ -47,6 +47,8 @@ body {
   
   .article-content {
     white-space: pre-line;
+    border: 2px solid #F27A20;
+    border-radius: 3px;
   }
   
   .article-img {
