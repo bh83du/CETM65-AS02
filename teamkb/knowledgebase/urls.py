@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-from .views import ArticleListView, ArticleDetailView, ArticleCreateView, ArticleUpdateView, ArticleDeleteView, AuthorArticleListView
+from .views import ArticleListView, ArticleDetailView, ArticleCreateView, ArticleUpdateView, ArticleDeleteView, AuthorArticleListView, SearchResultsView
 
 # Included URL patterns
 urlpatterns = [
@@ -11,6 +11,7 @@ urlpatterns = [
     path('knowledgebase/create/', ArticleCreateView.as_view(), name='KB-create'),
     path('knowledgebase/<int:pk>/update', ArticleUpdateView.as_view(), name='KB-update'),
     path('knowledgebase/<int:pk>/delete', ArticleDeleteView.as_view(), name='KB-delete'),
+    path('search/', SearchResultsView.as_view(), name = 'KB-search')
 ]
 
 

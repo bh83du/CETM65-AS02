@@ -4,6 +4,7 @@ from .models import Article, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from .forms import CreateArticleForm, UpdateArticleForm
+from django.db.models import Q
 
 
 # Updated view to render home.html
@@ -66,3 +67,14 @@ class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+class SearchResultsView(ListView):
+    model = Article
+    template_name = 'knowledgebase/search_results.html'
+    paginate_by = 5
+    
+    def getqueryset(self):
+        return Article.objects.filter(
+            Q(title_icontains='Test')
+        )
+
