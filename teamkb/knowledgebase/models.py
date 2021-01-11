@@ -1,13 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 
 # Creating a model to store knowledge base articles
 class Article(models.Model):
     title = models.CharField(max_length=80, unique=True, null=False)
     area = models.CharField(max_length=30, null=False)
-    content = models.TextField()
+    content = RichTextField()
     jiraid = models.CharField(max_length=80, blank=True, null=True, verbose_name='Jira ID')
     date_posted = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)

@@ -11,7 +11,6 @@ urlpatterns = [
     path('knowledgebase/create/', ArticleCreateView.as_view(), name='KB-create'),
     path('knowledgebase/<int:pk>/update', ArticleUpdateView.as_view(), name='KB-update'),
     path('knowledgebase/<int:pk>/delete', ArticleDeleteView.as_view(), name='KB-delete'),
-    path('news/', views.news, name='KB-news'),
 ]
 
 
