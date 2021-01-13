@@ -1,0 +1,24 @@
+{% extends "knowledgebase/template.html" %}
+{% block content %}
+<div>
+    <h1>Search Results</h1>   
+</div>
+<div>
+{% for queryset in article %}    
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ article.author.profile.image.url }}">
+        <div class="media-body">
+            <h2><a class="article-title" href="{% url 'KB-detail' article.id %}">{{ queryset.title }}</a></h2>
+            <div class="article-metadata">
+                <p>
+                    Submitted By: <a class="mr-2" href="{% url 'KB-author' article.author.username %}">{{ queryset.author }}</a>
+                </p>
+                    <small class="text-muted">Date Submitted:   {{ queryset.date_posted }}</small>
+            </div>
+            <p class="article-content">{{ queryset.content|safe }}</p>
+        </div>
+    </article>
+{% endfor %}
+</div>
+
+{% endblock %}

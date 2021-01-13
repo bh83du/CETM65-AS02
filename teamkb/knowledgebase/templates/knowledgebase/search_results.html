@@ -4,22 +4,25 @@
     <h1>Search Results</h1>   
 </div>
     <div>
-        {% for article in articles %}    
+        {% for queryset in article %}    
             <article class="media content-section">
                 <img class="rounded-circle article-img" src="{{ article.author.profile.image.url }}">
                 <div class="media-body">
-                  <h2><a class="article-title" href="{% url 'KB-detail' article.id %}">{{ article.title }}</a></h2>
+                  <h2><a class="article-title" href="{% url 'KB-detail' article.id %}">{{ queryset.title }}</a></h2>
                 <div class="article-metadata">
                   <p>
-                    Submitted By: <a class="mr-2" href="{% url 'KB-author' article.author.username %}">{{ article.author }}</a>
+                    Submitted By: <a class="mr-2" href="{% url 'KB-author' article.author.username %}">{{ queryset.author }}</a>
                   </p>
-                    <small class="text-muted">Date Submitted:   {{ article.date_posted }}</small>
+                    <small class="text-muted">Date Submitted:   {{ queryset.date_posted }}</small>
                 </div>
-                <p class="article-content">{{ article.content|safe }}</p>
+                <p class="article-content">{{ queryset.content|safe }}</p>
                 </div>
-            </article>     
+            </article>
+        {% empty %}
+            <h3>No Results Found.  Please Try A Different Query.</h3>
         {% endfor %}
     </div>
+
     {% if is_paginated %}
 
       {% if page_obj.has_previous %}
@@ -41,4 +44,5 @@
       {% endif %}
 
     {% endif %}
+
 {% endblock %}

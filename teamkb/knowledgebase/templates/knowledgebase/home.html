@@ -4,6 +4,14 @@
     <h1>ELCSS - Knowledgebase Home</h1>   
 </div>
 <div>
-<p>Some text describing the purpose of the project and the application.</p>
-</div>    
+<p>Centralised Switching Service</p>
+
+<a href
+</div>
+<div>
+    <form action="{% url 'KB-search' %}" method="get">
+        <input name="q" type="text" placeholder="Search Knowledgebase...">
+        <button class="btn btn-default" type"submit">Search</button>
+    </form>
+</div>
 {% endblock %}

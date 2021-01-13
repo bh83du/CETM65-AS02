@@ -71,10 +71,23 @@ class ArticleDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 class SearchResultsView(ListView):
     model = Article
     template_name = 'knowledgebase/search_results.html'
+    context_object_name = 'articles'
     paginate_by = 5
+    # success_url = '/search'
     
-    def getqueryset(self):
-        return Article.objects.filter(
-            Q(title_icontains='Test')
-        )
-
+    def get_queryset(self):
+        query = self.request.GET.get('q')
+        print(query)
+        if query:
+            postresult = Article.objects.filter(
+                Q(title__icontains=query) | Q(content__icontains=query)
+            ).order_by('-date_updated')
+            queryset = postresult
+            print(queryset)
+            return queryset
+        else:
+            queryset = None
+            print(queryset)
+            return queryset
+        return queryset
+        

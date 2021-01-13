@@ -3,18 +3,6 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 
-# Create a model to maintain Article Categories
-
-class Category(models.Model):
-    name = models.CharField(max_length=80, unique=True, null=False)
-
-    def __str__(self):
-        category_str =   f"Name: {self.name}"
-        return category_str 
-
-    def get_absolute_url(self):
-        return reverse('KB-detail', kwargs={'pk': self.pk})
-
 # Creating a model to store knowledge base articles
 class Article(models.Model):
     title = models.CharField(max_length=80, unique=True, null=False)
@@ -42,5 +30,31 @@ class Article(models.Model):
 
     def get_absolute_url(self):
         return reverse('KB-detail', kwargs={'pk': self.pk})
+
+
+# Create a model to maintain Article Categories
+
+class Category(models.Model):
+    name = models.CharField(max_length=80, unique=True, null=False)
+
+    def __str__(self):
+        category_str =   f"Name: {self.name}"
+        return category_str 
+
+    def get_absolute_url(self):
+        return reverse('KB-detail', kwargs={'pk': self.pk})
+
+
+# Create a model to maintain Functional Areas
+
+class Area(models.Model):
+    func_area = models.CharField(max_length=80, unique=True, null=False)
+
+    def __str__(self):
+        category_str =   f"Functional Area: {self.func_area}"
+        return category_str 
+
+    def get_absolute_url(self):
+        return reverse('KB-detail', kwargs={'pk': self.pk})    
 
 
