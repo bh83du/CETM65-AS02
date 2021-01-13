@@ -31,16 +31,23 @@
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{% url 'KB-home' %}">Home</a>
               <a class="nav-item nav-link" href="{% url 'KB-articles' %}">Articles</a>
+                <form class="pt-2" action="{% url 'KB-search' %}" method="get">
+                  <input name="q" type="text" placeholder="Search...">
+                </form>
             </div>
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                <a class="nav-item nav-link" href="admin/">Admin</a>
+                {% endif %}
               <a class="nav-item nav-link" href="{% url 'KB-create' %}">Create Article</a>
               <a class="nav-item nav-link" href="{% url 'profile' %}">User Profile</a>
               <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
               {% else %}
               <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
               <a class="nav-item nav-link" href="{% url 'signup' %}">Sign Up Here</a>
+
               {% endif %}
             </div>
           </div>
@@ -49,7 +56,7 @@
     </header>
     <main role="main" class="container">
       <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-12">
           {% if messages %}
               {% for message in messages %}
                   <div class="alert alert-{{ message.tags }}">
@@ -58,21 +65,6 @@
               {%  endfor %}
           {%  endif %}
           {% block content %}{% endblock %}
-        </div>
-        <div class="col-md-2">
-          <div class="content-section">
-            <h3>User Options</h3>
-            <p class='text-muted'>You can put any information here you'd like.
-              {% if user.is_authenticated %}
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{% url 'KB-create' %}">Create Article</a></li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-              {% else %}
-                <li class="list-group-item list-group-item-light">Calendars</li>
-              {% endif %}
-              </ul>
-            </p>
-          </div>
         </div>
       </div>
     </main>

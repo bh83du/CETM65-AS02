@@ -90,4 +90,3 @@ class SearchResultsView(ListView):
             print(queryset)
             return queryset
         return queryset
-        
