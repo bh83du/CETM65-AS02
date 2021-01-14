@@ -72,7 +72,7 @@ class SearchResultsView(ListView):
     model = Article
     template_name = 'knowledgebase/search_results.html'
     context_object_name = 'articles'
-    paginate_by = 5
+    # paginate_by = 5
     # success_url = '/search'
     
     def get_queryset(self):

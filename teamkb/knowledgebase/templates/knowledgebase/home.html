@@ -4,12 +4,34 @@
     <h1>ELCSS - Knowledgebase Home</h1>   
 </div>
 <div>
-<p>Centralised Switching Service</p>
+    <h3><p><u><strong>DXC/Electralink&nbsp;CSS&nbsp;Connect&nbsp;Project</strong></u></p></h3>
+</div>
+<div>
+    <p>The purpose of this Knowledgebase is to provide a repository for any useful information, or solutions to recurring issues within the CSS Connect Project.</p>
+
+    <p>The Centralised Switching Service (CSS) is an OFGEM led programme to allow consumers to switch Energy Suppliers within 24 hours.</p>
+
+    <p>CSS Connect is the Electralink Adaptor Solution to support the CSS programme</p>
+
+    <p>Further Information on the over arching programme can be found here:</p>
+
+    <p><a href="https://www.smartdcc.co.uk/smart-future/switching-programme/">DCC CSS Programme</a></p>
+
+    <p>And further information on the Electralink CSS Connect Adaptor can be found here:</p>
+
+    <p><a href="https://www.electralink.co.uk/cssconnect/">Electralink CSS Connect</a></p>
+
+    <p>Please search the Knowledgebase for DXC \ Electralink related information.</p>
 </div>
 <div>
     <form action="{% url 'KB-search' %}" method="get">
+        <div>
         <input name="q" type="text" size="100" placeholder="Search The Knowledgebase...">
-        <button class="btn btn-default" type"submit">Search</button>
+        </div>
+        <br>
+        <div>
+        <button class="btn btn-default pt-10" type"submit">Search</button>
+        </div>
     </form>
 </div>
 {% endblock %}

@@ -33,6 +33,7 @@ class UpdateArticleForm(forms.ModelForm):
             fields = ['title', 'category', 'area', 'content', 'jiraid']
 
             widgets = {
-                'category': forms.Select(choices=cats_list)
+                'category': forms.Select(choices=cats_list),
+                'area':     forms.Select(choices=area_list)
             }
 
