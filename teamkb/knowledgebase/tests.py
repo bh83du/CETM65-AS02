@@ -1,8 +1,10 @@
-from django.test import TestCase
+from django.test import RequestFactory,TestCase
 from django.urls import resolve
 from knowledgebase.views import home
 from .models import Article, Category, Area
 from users.models import User
+from .views import ArticleListView, AuthorArticleListView, ArticleDetailView, ArticleCreateView, ArticleUpdateView, ArticleDeleteView, SearchResultsView
+from .forms import CreateArticleForm, UpdateArticleForm
 
 
 # Test Knowledgebase Models
@@ -67,9 +69,110 @@ class KnowledgebaseModelTest(TestCase):
         self.assertEqual(saved_area.func_area, 'DevPortal')
 
 
+# Test Knowledgebase Views
 
 class TestHomePage(TestCase):
-
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
         self.assertEqual(found.func, home)
+
+class ArticleListViewTest(TestCase):
+    def test_ArticleListView(self):
+        response = self.client.get('/articles/')
+        self.assertTemplateUsed(response, 'knowledgebase/articles.html')
+
+class AuthorArticleListViewTest(TestCase):
+    def setUp(self):
+        user = User.objects.create(
+        username='mzy8mh',
+        first_name='Test',
+        last_name='User',
+        email='test.user@testcompany.co.uk',
+        password='Testing321',
+    )
+
+    def test_AuthorArticleListView(self):
+        response = self.client.get('/user/mzy8mh/')
+        self.assertTemplateUsed(response, 'knowledgebase/articles_author.html')        
+
+class ArticleDetailViewTest(TestCase):
+    def setUp(self):
+        user = User.objects.create(
+        username='mzy8mh',
+        first_name='Test',
+        last_name='User',
+        email='test.user@testcompany.co.uk',
+        password='Testing321',
+    )
+        article = Article.objects.create(
+        title='Test',
+        author=User.objects.get(pk=1),
+        content='TestContent',
+        jiraid='ELCSS-2021',
+        category='Testing',
+        area='DevPortal',
+        )
+
+    def test_ArticleListView(self):
+        response = self.client.get('/knowledgebase/1/')
+        self.assertTemplateUsed(response, 'knowledgebase/article_detail.html')
+
+class ArticleCreateViewTest(TestCase):
+    def setUp(self):
+        user = User.objects.create(
+        username='mzy8mh',
+        first_name='Test',
+        last_name='User',
+        email='test.user@testcompany.co.uk',
+        password='Testing321',
+        )
+        
+    def test_ArticleCreateView(self):
+        response = self.client.get('/knowledgebase/create')
+        self.assertIsInstance(response.context['form'], CreateArticleForm)
+
+
+class ArticleUpdateViewTest(TestCase):
+    def setUp(self):
+        user = User.objects.create(
+        username='mzy8mh',
+        first_name='Test',
+        last_name='User',
+        email='test.user@testcompany.co.uk',
+        password='Testing321',
+    )
+        article = Article.objects.create(
+        title='Test',
+        author=User.objects.get(pk=1),
+        content='TestContent',
+        jiraid='ELCSS-2021',
+        category='Testing',
+        area='DevPortal',
+        )
+
+
+    def test_ArticleUpdateView(self):
+        response = self.client.get('/knowledgebase/1/update')
+        self.assertIsInstance(response.context['form'], UpdateArticleForm)
+    
+class ArticleDeleteViewTest(TestCase):
+    def setUp(self):
+        user = User.objects.create(
+        username='mzy8mh',
+        first_name='Test',
+        last_name='User',
+        email='test.user@testcompany.co.uk',
+        password='Testing321',
+    )
+        article = Article.objects.create(
+        title='Test',
+        author=User.objects.get(pk=1),
+        content='TestContent',
+        jiraid='ELCSS-2021',
+        category='Testing',
+        area='DevPortal',
+        )
+
+    def test_ArticleDeleteView(self):
+        response = self.client.get('/knowledgebase/1/delete/')
+        self.assertTemplateUsed(response, 'knowledgebase/article_confirm_delete.html')
