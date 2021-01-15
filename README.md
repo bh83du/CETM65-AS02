@@ -34,7 +34,8 @@ Django based three tier web application to provide a Project Specific Knowledgeb
     * python manage.py test
 
 ###  Functional Test
-    * Located in the Func_Selenium folder
-    * Execute through Python shell
-    * Make sure the Django Server is running prior to execution
+
+* Located in the Func_Selenium folder
+* Execute through Python shell
+* Make sure the Django Server is running prior to execution
 
