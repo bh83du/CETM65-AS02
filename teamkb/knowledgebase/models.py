@@ -12,7 +12,8 @@ class Article(models.Model):
     jiraid = models.CharField(max_length=80, blank=True, null=True, verbose_name='Jira ID')
     date_posted = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
-    author = models.ForeignKey(User, on_delete=models.PROTECT) # Doesn't delete post when Author is deleted.
+    author = models.ForeignKey(User, on_delete=models.PROTECT)
+     # Doesn't delete post when Author is deleted.
     
 # Add __str__ method to be returned when model is queried.
 
@@ -25,8 +26,8 @@ class Article(models.Model):
                         f"Date Posted: {self.date_posted}" \
                         f"Date Updated: {self.date_updated}" \
                         f"Author: {self.author}" \
-        
-        return article_str 
+
+        return article_str
 
     def get_absolute_url(self):
         return reverse('KB-detail', kwargs={'pk': self.pk})
@@ -39,7 +40,7 @@ class Category(models.Model):
 
     def __str__(self):
         category_str =   f"Name: {self.name}"
-        return category_str 
+        return category_str
 
     def get_absolute_url(self):
         return reverse('KB-detail', kwargs={'pk': self.pk})
@@ -52,9 +53,7 @@ class Area(models.Model):
 
     def __str__(self):
         category_str =   f"Functional Area: {self.func_area}"
-        return category_str 
+        return category_str
 
     def get_absolute_url(self):
-        return reverse('KB-detail', kwargs={'pk': self.pk})    
-
-
+        return reverse('KB-detail', kwargs={'pk': self.pk})

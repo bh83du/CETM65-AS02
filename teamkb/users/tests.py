@@ -94,6 +94,7 @@ class UsersViews(TestCase):
     def test_profile_view(self):
         response = self.client.get('/profile/')
         self.assertTemplateUsed(response, 'users/profile.html')
+        self.assertIsInstance(response.context['form'], ProfileUpdateForm)   
 
 
     

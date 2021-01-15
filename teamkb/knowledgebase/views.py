@@ -1,25 +1,29 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Article, Category
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
-from .forms import CreateArticleForm, UpdateArticleForm
 from django.db.models import Q
+from .models import Article, Category
+from .forms import CreateArticleForm, UpdateArticleForm
 
 
 # Updated view to render home.html
 def home(request):
     return render(request, 'knowledgebase/home.html', {'title': 'Homepage'})
 
+# View to list all articles, regardless of author.
+# All other views follow the same structure
+
 class ArticleListView(ListView):
     # Database/Model view will use
     model = Article
-    # Add template _name to override defauly of <app>/<model>_<viewtype>.html
+    # Add template _name to override default of <app>/<model>_<viewtype>.html
     template_name = 'knowledgebase/articles.html'
-    # Default is is object_view, add context_object_name to overide this
+    # Default is object_view, add context_object_name to overide this
     context_object_name = 'articles'
     # This will order posts from newest to oldest.
     ordering = ['-date_updated']
+    # Paginate the posts.  Maximum of 5 on screen
     paginate_by = 5
 
 class AuthorArticleListView(ListView):
@@ -31,7 +35,6 @@ class AuthorArticleListView(ListView):
     def get_queryset(self):
         user = get_object_or_404(User, username=self.kwargs.get('username'))
         return Article.objects.filter(author=user).order_by('-date_updated')
-    
 
 class ArticleDetailView(DetailView):
     model = Article
@@ -73,7 +76,10 @@ class SearchResultsView(ListView):
     template_name = 'knowledgebase/search_results.html'
     context_object_name = 'articles'
     # paginate_by = 5
-    
+
+    # Taking search query as q, filter database to bring back
+    # a queryset containing the filtered result.
+    # Queryset is then passed to the template to be displayed
     def get_queryset(self):
         query = self.request.GET.get('q')
         print(query)

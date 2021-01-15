@@ -23,10 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'itb@d!2bli56#dt)3l92)!8(+r*$&e^7b)q&e0*ge#(1zc8g8-'
 
-# Why isn't this bit working?  08/01/2021
+'''
+If the system were to be deployed to the open Internet, then invoke this
+section and store the secret key as an Environment Variable on Heroku.
+
 # SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
+'''
+
 # SECURITY WARNING: don't run with debug turned on in production!
+# If system was Live, DEBUG would be set to FALSE.
+
 DEBUG = True
 
 ALLOWED_HOSTS = []

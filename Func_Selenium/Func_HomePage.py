@@ -90,13 +90,26 @@ class Test_Home_Page(unittest.TestCase):
         password1.send_keys("Testing321")
         password2.send_keys("Testing321")
         self.driver.find_element_by_css_selector(".form-group > .btn").click()
+        time.sleep(DELAY)
         self.assertEqual(self.driver.current_url, "http://127.0.0.1:8000/login/")
         time.sleep(DELAY)
         success = self.driver.find_element_by_css_selector(".alert")
         self.assertEqual(success.text, "Success! Account created for testuser999. Please login.")
 
-
-
+    # Existing User attempts to log in with Invalid credentials
+    def test_invalid_user_credntials(self):
+        self.driver.find_element_by_link_text("Login").click()
+        time.sleep(DELAY)
+        username = self.driver.find_element_by_id("id_username")
+        password = self.driver.find_element_by_id("id_password")
+        login = self.driver.find_element_by_css_selector(".form-group > .btn")
+        username.clear()
+        password.clear()
+        username.send_keys("bh83du")
+        password.send_keys("Pas55word123")
+        login.click()
+        error = self.driver.find_element_by_css_selector(".alert")
+        self.assertEqual(error.text, "Please enter a correct username and password. Note that both fields may be case-sensitive.")
 
 
 
