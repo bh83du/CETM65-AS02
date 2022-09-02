@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 from .forms import UserRegistration, UserUpdateForm, ProfileUpdateForm
 
 # Create your tests here.
-
+# Create all the tests here
 # Test Users Model
 class UserModelTest(TestCase):
     def setUp(self):
